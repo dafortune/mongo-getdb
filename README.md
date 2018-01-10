@@ -9,9 +9,8 @@ An opinionated way to connect with the mongodb driver.
 ## Usage
 
 ~~~javascript
-var getDb = require('mongo-getdb');
-
-getDb.init('mongo://localhost/mydb');
+const mongoGetDb = require('mongo-getdb');
+const getDb = mongoGetDb('mongo://localhost/mydb');
 
 getDb(function (db) {
 	db.collection('products')
@@ -22,7 +21,7 @@ getDb(function (db) {
 });
 ~~~
 
-getDb.init allows the same parameters than [MongoClient.connect](https://github.com/mongodb/node-mongodb-native/blob/master/docs/articles/MongoClient.md#mongoclientconnect).
+mongoGetDb allows the same parameters than [MongoClient.connect](https://github.com/mongodb/node-mongodb-native/blob/master/docs/articles/MongoClient.md#mongoclientconnect).
 
 ## Why?
 
@@ -33,12 +32,12 @@ This will "memoize" the result of MongoClient.connect, so you can use getDb anyw
 ## Usage with multiples databases
 
 ~~~javascript
-var getDb = require('mongo-getdb');
+const mongoGetDb = require('mongo-getdb');
 
-getDb.init('db-one', 'mongodb://localhost/mydb');
-getDb.init('db-two', 'mongodb://localhost/mydb2');
+const getDb1 = mongoGetDb('mongodb://localhost/mydb');
+const getDb2 = mongoGetDb('mongodb://localhost/mydb2');
 
-getDb('db-one', function (db) {
+getDb1(function (db) {
 	db.collection('products')
 	  .find({})
 	  .toArray(function(er, prods) {
